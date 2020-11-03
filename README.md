@@ -9,7 +9,7 @@ The cloud server will host a database that stores previous messages.
 
 Options to consider:
 Have a multi-control option with the button (long press to bring up menu, scroll with potentiometer)
-  Menu items:
+Menu items:
   - delete character
   - clear screen
   - send message
