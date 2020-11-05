@@ -45,8 +45,10 @@ def actAfterPause(duration):
     if END < duration <= SPACE:
         message += morse.translate_mc_to_letter(letter)
         letter = ""
+        print("end of letter")
     elif SPACE < duration:
         message += " "
+        print("space")
 
 def actAfterPress(duration):
     """
