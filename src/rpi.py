@@ -54,6 +54,7 @@ def actAfterPress(duration):
     """
     Either add a dot/dash to the current letter, or send the message depending on the duration of the press
     """
+    global message
     global letter
     # Define press lengths (s)
     DASH = 0.4
