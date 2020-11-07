@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import threading
+import time
 # This append is to support importing the LCD library.
 sys.path.append('../grovepi/Software/Python/grove_rgb_lcd')
 from grove_rgb_lcd import *
@@ -34,9 +35,9 @@ def _writeBuffer(buffer, lock):
     if len(buffer) < 32:
         lcdOutput = buffer
     else:
-        lcdOutput = buffer[0:16]+buffer[-16:0]
+        lcdOutput = buffer[:16]+buffer[-16:]
     setText(lcdOutput)
-    
+
 
 
 if __name__ == '__main__':
@@ -46,8 +47,13 @@ if __name__ == '__main__':
     lock = threading.Lock() #define I2C lock
     buf = []
     addLetter(buf, "...", lock)
-    addMessage(buf, "Hello THis is my message --=--=-", lock)
-    print(buf)
-    print(buf[-1])
-    print(buf[-2])
-    print(buf[-3])
+    time.sleep(0.5)
+    addMessage(buf, "S", lock)
+    time.sleep(0.5)
+    addLetter(buf, "---", lock)
+    time.sleep(0.5)
+    addMessage(buf, "SO", lock)
+    time.sleep(0.5)
+    addLetter(buf, "...", lock)
+    time.sleep(0.5)
+    addMessage(buf, "SOS", lock)
