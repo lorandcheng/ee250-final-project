@@ -1,15 +1,14 @@
+#!/usr/bin/env python3
 import time
 import sys
 import threading
-#import messageHandler
 
-sys.path.append('../grovepi/Software/Python/')
-# This append is to support importing the LCD library.
-sys.path.append('../grovepi/Software/Python/grove_rgb_lcd')
+from lcdHandler import *
+#from messageHandler import *
 
 # GrovePi Modules
+sys.path.append('../grovepi/Software/Python/')
 import grovepi
-import grove_rgb_lcd
 
 #Declare message tools
 from morseCode import Morse_Code_Bin_Tree, Node
