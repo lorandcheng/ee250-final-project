@@ -12,23 +12,27 @@ def lcdInit():
     """
     textCommand(0x01) # clear display
 
-def addLetter(buffer, letter, lock):
+def addLetter(buffer, letter):
     """
     Prints out letter on first line of lcd
+    buffer - list containing string buffer
+    letter - letter to overwrite first line [0:16] of buffer
     """
     paddedLetter = f'{letter: <16}'
     buffer[0:16] = paddedLetter
-    _writeBuffer(buffer, lock)
+    _writeBuffer(buffer)
 
-def addMessage(buffer, message, lock):
+def addMessage(buffer, message):
     """
     Prints out message on second line of lcd
+    buffer - list containing string buffer
+    message - message to overwrite second line [16:] of buffer
     """
     buffer[16:] = message
-    _writeBuffer(buffer, lock)
+    _writeBuffer(buffer)
 
 
-def _writeBuffer(buffer, lock):
+def _writeBuffer(buffer):
     """
     Writes the contents of the buffer to the LCD
     """
@@ -44,16 +48,15 @@ if __name__ == '__main__':
     """
     For testing purposes only
     """
-    lock = threading.Lock() #define I2C lock
     buf = []
-    addLetter(buf, "...", lock)
+    addLetter(buf, "...")
     time.sleep(0.5)
-    addMessage(buf, "S", lock)
+    addMessage(buf, "S")
     time.sleep(0.5)
-    addLetter(buf, "---", lock)
+    addLetter(buf, "---")
     time.sleep(0.5)
-    addMessage(buf, "SO", lock)
+    addMessage(buf, "SO")
     time.sleep(0.5)
-    addLetter(buf, "...", lock)
+    addLetter(buf, "...")
     time.sleep(0.5)
-    addMessage(buf, "SOS", lock)
+    addMessage(buf, "SOS")
