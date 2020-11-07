@@ -1,4 +1,4 @@
-# Credits go to @tremlab: https://github.com/tremlab/morseCodeTranslator
+# Source code modified from @tremlab: https://github.com/tremlab/morseCodeTranslator
 # a python module that builds a populated binary tree for morse code values, with a method to easily translate a morse code string to its letter.
 
 # from morse_code import Morse_Code_Bin_Tree
@@ -32,15 +32,19 @@ class Morse_Code_Bin_Tree(object):
         """method that takes a string input of morse code, traverses the morse code binary tree, and returns the correct letter for that sequnce.
             e.g. "...." => "H"
         """
+        if mc_ltr_str == "":
+            return ""
         current = self.head
+        try:
+            for char in mc_ltr_str:
+                if char == ".":
+                    current = current.left
+                else:
+                    current = current.right
 
-        for char in mc_ltr_str:
-            if char == ".":
-                current = current.left
-            else:
-                current = current.right
-
-        return current.val
+            return current.val
+        except AttributeError:
+            print("No such letter exists")
 
 
 class Node(object):
