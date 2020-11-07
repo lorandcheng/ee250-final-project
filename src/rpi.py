@@ -29,40 +29,53 @@ grovepi.pinMode(BUTTON,"INPUT")
 grove_rgb_lcd.textCommand(0x01) # Clear display
 lock = threading.Lock() #define I2C lock
 
+# Define press lengths (s)
+DASH = 0.4
+SEND = 3
+
+# Define pause lengths (s)
+END = 1
+SPACE = 3
 
 
-
-def duringPause(duration):
+def duringPause(duration, done):
     """
-    Either end the current letter or insert a space depending on the duration of the pause
+    Either end the current letter or insert a space depending on the duration of the pause and what's already been done
     """
     global message
     global letter
-    # Define pause lengths (s)
-    END = 1
-    SPACE = 3
+    global END
+    global SPACE
     # Determine action
-    if END < duration <= SPACE:
-        message += morse.translate_mc_to_letter(letter)
-        letter = ""
-        print("end of letter")
-        return 0
-    elif SPACE < duration:
-        message += " "
-        print("space")
-        return 1
+    if done == 0: # no action has been done
+        if END < duration <= SPACE:
+            try:
+                message += morse.translate_mc_to_letter(letter)
+            except TypeEror:
+                print("Unable to translate letter")
+            letter = ""
+            print("end of letter")
+            return 1
+        else:
+            return 0
+    elif done == 1: # letter has ended
+        if SPACE < duration:
+            message += " "
+            print("space")
+            return 2 # space has been added
+        else:
+            return 1
     else:
-        return 0
+        return 2
+            
 
 def afterPress(duration):
     """
-    Either add a dot/dash to the current letter, or send the message depending on the duration of the press
+    Either add a dot/dash to the current letter depending on the duration of the press
     """
-    global message
     global letter
-    # Define press lengths (s)
-    DASH = 0.4
-    SEND = 3
+    global DASH
+    global SEND
     # Determine action
     if duration < DASH:
         letter += "."
@@ -70,9 +83,6 @@ def afterPress(duration):
     elif DASH <= duration < SEND:
         letter+= "-"
         print("-")
-    elif SEND < duration:
-        print(message)
-        message = ""
 
 def buttonPressed():
     """
@@ -91,20 +101,27 @@ if __name__ == '__main__':
     # pauseDuration  = 0
     timerStart = 0
     state = 0 # 0 button is not pressed, 1 button is pressed
-    finished = 0
+    done = 0
     while True:
         elapsedTime = time.time()-timerStart # calculate time since last transition
         if state == 0: # button is not pressed
             if buttonPressed():
                 state = 1
-                timerStart = time.time() # reset timer on transition
-            elif timerStart != 0 and not finished:
-                finished = duringPause(elapsedTime)
+                timerStart = time.time() # reset timer
+                done = 0 # reset action counter
+            elif timerStart != 0:
+                done = duringPause(elapsedTime, done)
         elif state == 1: # button is pressed
             if not buttonPressed():
-                afterPress(elapsedTime)
                 state = 0
-                timerStart = time.time() # reset timer on transition
+                timerStart = time.time() # reset timer
+                afterPress(elapsedTime)
+                done = 0 # reset action counter
+            elif SEND < elapsedTime and not done:
+                print("Message Sent:", message)
+                message = ""
+                done = 1
+                
             
         
 
