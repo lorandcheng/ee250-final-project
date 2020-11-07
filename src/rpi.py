@@ -30,7 +30,7 @@ grove_rgb_lcd.textCommand(0x01) # Clear display
 lock = threading.Lock() #define I2C lock
 
 # Define press lengths (s)
-DASH = 0.4
+DASH = 0.3
 SEND = 3
 
 # Define pause lengths (s)
@@ -51,10 +51,10 @@ def duringPause(duration, done):
         if END < duration <= SPACE:
             try:
                 message += morse.translate_mc_to_letter(letter)
-            except TypeEror:
+            except TypeError:
                 print("Unable to translate letter")
+            print("end of letter:", letter)
             letter = ""
-            print("end of letter")
             return 1
         else:
             return 0
@@ -94,33 +94,43 @@ def buttonPressed():
 
 if __name__ == '__main__':
 
-    # initialize timer variables
-    # pressStart = 0
-    # pressDuration = 0
-    # pauseStart = 0
-    # pauseDuration  = 0
-    timerStart = 0
-    state = 0 # 0 button is not pressed, 1 button is pressed
+    # initialize state machine variables
+    timerStart = 0 # time of last event
+    state = 0 # 0 button is not pressed, 1 button is pressed, 2 message sent
     done = 0
+    
     while True:
         elapsedTime = time.time()-timerStart # calculate time since last transition
-        if state == 0: # button is not pressed
+        
+        # button is not pressed
+        if state == 0: 
             if buttonPressed():
                 state = 1
                 timerStart = time.time() # reset timer
                 done = 0 # reset action counter
-            elif timerStart != 0:
+            elif timerStart != 0 and done != 2:
                 done = duringPause(elapsedTime, done)
-        elif state == 1: # button is pressed
+                
+        # button is pressed        
+        elif state == 1: 
             if not buttonPressed():
                 state = 0
                 timerStart = time.time() # reset timer
                 afterPress(elapsedTime)
                 done = 0 # reset action counter
             elif SEND < elapsedTime and not done:
-                print("Message Sent:", message)
+                state = 0
+                print("Message Sending:"+ message)
+                time.sleep(2)
+                print("Message Sent!")
                 message = ""
-                done = 1
+                done = 0
+                timerStart = 0
+                
+        # message received       
+        elif state == 2:
+            pass
+                
                 
             
         
