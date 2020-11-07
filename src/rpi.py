@@ -130,25 +130,3 @@ if __name__ == '__main__':
         # message received       
         elif state == 2:
             pass
-                
-                
-            
-        
-
-
-
-
-
-
-
-        # # if the button was pressed
-        # if buttonPressed():
-        #     pressStart = time.time() # start button timer
-        #     if pauseStart:
-        #         pauseDuration = time.time()-pauseStart # calculate length of pause
-        #         duringPause(pauseDuration)
-        #     while buttonPressed():
-        #         pass
-        #     pressDuration = time.time()-pressStart # calculate length of press
-        #     afterPress(pressDuration)
-        #     pauseStart = time.time() # start pause timer
