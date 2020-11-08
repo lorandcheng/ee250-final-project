@@ -37,7 +37,7 @@ class messageHandler:
 
         response = requests.post("http://{}/send-message".format(self.serverAddress),
                                  headers=headers,
-                                 data=json.dumps(payload))
+                                 data=json.dumps(payload, indent=4, sort_keys=True, default=str))
 
         if response.status_code == 200:
             pprint(response.json())
