@@ -37,6 +37,7 @@ SEND = 3
 END = 0.7
 SPACE = 3
 
+SERVER = 127.0.0.1:4200
 
 def duringPause(duration, done):
     """
@@ -109,7 +110,7 @@ if __name__ == '__main__':
     timerStart = 0 # time of last event
     state = 0 # 0 button is not pressed, 1 button is pressed, 2 message sent
     done = 0
-
+    messageClient = messageHandler("rpi",SERVER)
     while True:
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
@@ -133,11 +134,16 @@ if __name__ == '__main__':
                 elif SEND < elapsedTime and not done:
                     state = 0
                     writeLetter(buf, "Message Sending")
-                    print("Message Sending:"+ message)
+                    print("Message Sending:" + message)
+                    success = messageClient.sendMessage(message)
                     time.sleep(2)
-                    writeLetter(buf, "Message Sent!")
-                    print("Message Sent!")
-                    time.sleep(2)
+                    if success:
+                        writeLetter(buf, "Message Sent!")
+                        print("Message Sent!")
+                    else:
+                        writeLetter(buf, "Message Failed!")
+                        print("Message Failed!")
+                    time.sleep(1)
                     lcdInit()
                     message = ""
                     buf = []

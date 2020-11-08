@@ -17,12 +17,11 @@ class messageHandler:
         self.serverAddress = serverAddress
 
 
-    def send_message(self, address, message):
+    def sendMessage(self, message):
         """
         Summary: Sends a POST message to the server
 
         Args:
-            address (string): Target server in format ip_addr:port
             message (string): Content of the message
         """
         headers = {
@@ -36,13 +35,17 @@ class messageHandler:
             'timestamp': datetime.datetime()
         }
 
-        response = requests.post("http://{}/send-message".format(address),
+        response = requests.post("http://{}/send-message".format(self.address),
                                  headers=headers,
                                  data=json.dumps(payload))
 
-        pprint(response.json())
+        if response.status_code == 200:
+            pprint(response.json())
+            return 1
+        else:
+            return 0
 
 
-    def get_message(self):
+    def getMessage(self):
         pass
     
