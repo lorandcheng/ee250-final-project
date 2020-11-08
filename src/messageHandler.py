@@ -32,7 +32,7 @@ class messageHandler:
         payload = {
             'sender': self.name,
             'message': message,
-            'timestamp': datetime.datetime()
+            'timestamp': datetime.datetime.now()
         }
 
         response = requests.post("http://{}/send-message".format(self.serverAddress),
