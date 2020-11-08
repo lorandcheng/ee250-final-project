@@ -37,7 +37,9 @@ SEND = 3
 END = 0.7
 SPACE = 3
 
-SERVER = '127.0.0.1:4200'
+HOST = '67.161.74.27'
+PORT = '4200'
+SERVER = f'{HOST}:{PORT}'
 
 def duringPause(duration, done):
     """
