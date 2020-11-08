@@ -106,38 +106,53 @@ if __name__ == '__main__':
     done = 0
 
     while True:
-        elapsedTime = time.time()-timerStart # calculate time since last transition
+        try:
+            elapsedTime = time.time()-timerStart # calculate time since last transition
 
-        # button is not pressed
-        if state == 0:
-            if buttonPressed():
-                state = 1
-                timerStart = time.time() # reset timer
-                done = 0 # reset action counter
-            elif timerStart != 0 and done != 2:
-                done = duringPause(elapsedTime, done)
+            # button is not pressed
+            if state == 0:
+                if buttonPressed():
+                    state = 1
+                    timerStart = time.time() # reset timer
+                    done = 0 # reset action counter
+                elif timerStart != 0 and done != 2:
+                    done = duringPause(elapsedTime, done)
 
-        # button is pressed
-        elif state == 1:
-            if not buttonPressed():
-                state = 0
-                timerStart = time.time() # reset timer
-                afterPress(elapsedTime)
-                done = 0 # reset action counter
-            elif SEND < elapsedTime and not done:
-                state = 0
-                writeLetter(buf, "Message Sending")
-                print("Message Sending:"+ message)
-                time.sleep(2)
-                writeLetter(buf, "Message Sent!")
-                print("Message Sent!")
-                time.sleep(2)
-                lcdInit()
-                message = ""
-                buf = []
-                done = 0
-                timerStart = 0
+            # button is pressed
+            elif state == 1:
+                if not buttonPressed():
+                    state = 0
+                    timerStart = time.time() # reset timer
+                    afterPress(elapsedTime)
+                    done = 0 # reset action counter
+                elif SEND < elapsedTime and not done:
+                    state = 0
+                    writeLetter(buf, "Message Sending")
+                    print("Message Sending:"+ message)
+                    time.sleep(2)
+                    writeLetter(buf, "Message Sent!")
+                    print("Message Sent!")
+                    time.sleep(2)
+                    lcdInit()
+                    message = ""
+                    buf = []
+                    done = 0
+                    timerStart = 0
 
-        # message received
-        elif state == 2:
-            pass
+            # message received
+            elif state == 2:
+                pass
+
+        #Graceful shutdown
+        except KeyboardInterrupt:
+            textCommand(0x01)
+            setRGB(0, 0, 0)
+            #TODO turn off led and buzzer
+            break
+
+        # retry after LCD error
+        except IOError as err:
+            if str(err) == '121':
+                time.sleep(0.25)
+            else:
+                raise
