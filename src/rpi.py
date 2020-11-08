@@ -4,7 +4,7 @@ import sys
 import threading
 
 from lcdHandler import *
-#from messageHandler import *
+from messageHandler import *
 
 # GrovePi Modules
 sys.path.append('../grovepi/Software/Python/')
@@ -45,6 +45,7 @@ def duringPause(duration, done):
     global message
     global letter
     global buf
+    global lock
     global END
     global SPACE
     # Determine action
@@ -55,8 +56,9 @@ def duringPause(duration, done):
             except TypeError:
                 print("Unable to translate letter")
             print("end of letter:", morse.translate_mc_to_letter(letter))
-            writeLetter(buf, " ")
-            writeMessage(buf, message)
+            with lock:
+                writeLetter(buf, " ")
+                writeMessage(buf, message)
             letter = ""
             return 1
         else:
@@ -64,8 +66,9 @@ def duringPause(duration, done):
     elif done == 1: # letter has ended
         if SPACE < duration:
             message += " "
-            writeLetter(buf, "Space")
-            writeMessage(buf, message)
+            with lock:
+                writeLetter(buf, "Space")
+                writeMessage(buf, message)
             print("space")
             return 2 # space has been added
         else:
@@ -79,6 +82,7 @@ def afterPress(duration):
     Either add a dot/dash to the current letter depending on the duration of the press
     """
     global letter
+    global lock
     global DASH
     global SEND
     # Determine action
@@ -88,7 +92,8 @@ def afterPress(duration):
     elif DASH <= duration < SEND:
         letter+= "-"
         print("-")
-    writeLetter(buf, letter)
+    with lock:
+        writeLetter(buf, letter)
 
 def buttonPressed():
     """
