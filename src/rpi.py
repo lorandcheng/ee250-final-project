@@ -139,7 +139,6 @@ if __name__ == '__main__':
                     time.sleep(2)
                     if success:
                         writeLetter(buf, "Message Sent!")
-                        print("Message Sent!")
                     else:
                         writeLetter(buf, "Message Failed!")
                         print("Message Failed!")
