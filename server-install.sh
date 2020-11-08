@@ -2,6 +2,8 @@
 
 sudo apt-get update
 sudo apt-get install git -y
+sudo apt-get -y install python3-pip
+sudo pip3 install flask python-dotenv
 
 ssh-keygen -t ed25519 -C "lfcheng@usc.edu"
 cd ~/.ssh
