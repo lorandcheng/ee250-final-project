@@ -37,7 +37,7 @@ SEND = 3
 END = 0.7
 SPACE = 3
 
-HOST = '67.161.74.27'
+HOST = '35.232.4.161'
 PORT = '4200'
 SERVER = f'{HOST}:{PORT}'
 
