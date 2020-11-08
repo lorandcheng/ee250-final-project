@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sys
-import threading
-import time
+
 # This append is to support importing the LCD library.
 sys.path.append('../grovepi/Software/Python/grove_rgb_lcd')
 from grove_rgb_lcd import *
@@ -10,9 +9,10 @@ def lcdInit():
     """
     Initialize LCD
     """
+    setRGB(0,128,64)
     textCommand(0x01) # clear display
 
-def addLetter(buffer, letter):
+def writeLetter(buffer, letter):
     """
     Prints out letter on first line of lcd
     buffer - list containing string buffer
@@ -22,7 +22,7 @@ def addLetter(buffer, letter):
     buffer[0:16] = paddedLetter
     _writeBuffer(buffer)
 
-def addMessage(buffer, message):
+def writeMessage(buffer, message):
     """
     Prints out message on second line of lcd
     buffer - list containing string buffer
@@ -48,15 +48,16 @@ if __name__ == '__main__':
     """
     For testing purposes only
     """
+    import time
     buf = []
-    addLetter(buf, "...")
+    writeLetter(buf, "...")
     time.sleep(0.5)
-    addMessage(buf, "S")
+    writeMessage(buf, "S")
     time.sleep(0.5)
-    addLetter(buf, "---")
+    writeLetter(buf, "---")
     time.sleep(0.5)
-    addMessage(buf, "SO")
+    writeMessage(buf, "SO")
     time.sleep(0.5)
-    addLetter(buf, "...")
+    writeLetter(buf, "...")
     time.sleep(0.5)
-    addMessage(buf, "SOS")
+    writeMessage(buf, "SOS")

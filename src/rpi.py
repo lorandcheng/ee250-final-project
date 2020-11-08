@@ -12,9 +12,10 @@ import grovepi
 
 #Declare message tools
 from morseCode import Morse_Code_Bin_Tree, Node
+morse = Morse_Code_Bin_Tree()
 letter = ""
 message = ""
-morse = Morse_Code_Bin_Tree()
+buf = [] # buffer for storing letter and message
 
 
 """
@@ -25,7 +26,7 @@ grovepi.pinMode(LED,"OUTPUT")
 BUTTON = 3 #D3
 grovepi.pinMode(BUTTON,"INPUT")
 # LCD connected to I2C port
-grove_rgb_lcd.textCommand(0x01) # Clear display
+lcdInit()
 lock = threading.Lock() #define I2C lock
 
 # Define press lengths (s)
@@ -33,7 +34,7 @@ DASH = 0.3
 SEND = 3
 
 # Define pause lengths (s)
-END = 1
+END = 0.7
 SPACE = 3
 
 
@@ -43,6 +44,7 @@ def duringPause(duration, done):
     """
     global message
     global letter
+    global buf
     global END
     global SPACE
     # Determine action
@@ -52,7 +54,9 @@ def duringPause(duration, done):
                 message += morse.translate_mc_to_letter(letter)
             except TypeError:
                 print("Unable to translate letter")
-            print("end of letter:", letter)
+            print("end of letter:", morse.translate_mc_to_letter(letter))
+            writeLetter(buf, " ")
+            writeMessage(buf, message)
             letter = ""
             return 1
         else:
@@ -60,13 +64,15 @@ def duringPause(duration, done):
     elif done == 1: # letter has ended
         if SPACE < duration:
             message += " "
+            writeLetter(buf, "Space")
+            writeMessage(buf, message)
             print("space")
             return 2 # space has been added
         else:
             return 1
     else:
         return 2
-            
+
 
 def afterPress(duration):
     """
@@ -82,6 +88,7 @@ def afterPress(duration):
     elif DASH <= duration < SEND:
         letter+= "-"
         print("-")
+    writeLetter(buf, letter)
 
 def buttonPressed():
     """
@@ -97,21 +104,21 @@ if __name__ == '__main__':
     timerStart = 0 # time of last event
     state = 0 # 0 button is not pressed, 1 button is pressed, 2 message sent
     done = 0
-    
+
     while True:
         elapsedTime = time.time()-timerStart # calculate time since last transition
-        
+
         # button is not pressed
-        if state == 0: 
+        if state == 0:
             if buttonPressed():
                 state = 1
                 timerStart = time.time() # reset timer
                 done = 0 # reset action counter
             elif timerStart != 0 and done != 2:
                 done = duringPause(elapsedTime, done)
-                
-        # button is pressed        
-        elif state == 1: 
+
+        # button is pressed
+        elif state == 1:
             if not buttonPressed():
                 state = 0
                 timerStart = time.time() # reset timer
@@ -119,13 +126,18 @@ if __name__ == '__main__':
                 done = 0 # reset action counter
             elif SEND < elapsedTime and not done:
                 state = 0
+                writeLetter(buf, "Message Sending")
                 print("Message Sending:"+ message)
                 time.sleep(2)
+                writeLetter(buf, "Message Sent!")
                 print("Message Sent!")
+                time.sleep(2)
+                lcdInit()
                 message = ""
+                buf = []
                 done = 0
                 timerStart = 0
-                
-        # message received       
+
+        # message received
         elif state == 2:
             pass
