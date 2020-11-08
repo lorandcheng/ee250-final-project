@@ -37,7 +37,7 @@ SEND = 3
 END = 0.7
 SPACE = 3
 
-SERVER = 127.0.0.1:4200
+SERVER = '127.0.0.1:4200'
 
 def duringPause(duration, done):
     """

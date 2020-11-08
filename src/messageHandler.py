@@ -35,7 +35,7 @@ class messageHandler:
             'timestamp': datetime.datetime()
         }
 
-        response = requests.post("http://{}/send-message".format(self.address),
+        response = requests.post("http://{}/send-message".format(self.serverAddress),
                                  headers=headers,
                                  data=json.dumps(payload))
 
