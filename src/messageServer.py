@@ -13,7 +13,7 @@ PORT = '4200'
 
 @app.route('/send-message', methods=['POST'])
 def postMessageCallback():
-     """
+    """
     Summary: A callback for when POST is called on [host]:[port]/send-message
 
     Returns:
@@ -23,7 +23,6 @@ def postMessageCallback():
     # Get the payload containing the sender, message, and timestamp
     payload = request.get_json()
     print(payload)
-
     #TODO add message to db
     response = {'Response': 'Message sent'}
 
