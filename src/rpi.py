@@ -56,9 +56,9 @@ def duringPause(duration, done):
             except TypeError:
                 print("Unable to translate letter")
             print("end of letter:", morse.translate_mc_to_letter(letter))
-            with lock:
-                writeLetter(buf, " ")
-                writeMessage(buf, message)
+            #with lock:
+            writeLetter(buf, " ")
+            writeMessage(buf, message)
             letter = ""
             return 1
         else:
@@ -66,9 +66,9 @@ def duringPause(duration, done):
     elif done == 1: # letter has ended
         if SPACE < duration:
             message += " "
-            with lock:
-                writeLetter(buf, "Space")
-                writeMessage(buf, message)
+            #with lock:
+            writeLetter(buf, "Space")
+            writeMessage(buf, message)
             print("space")
             return 2 # space has been added
         else:
@@ -150,8 +150,8 @@ if __name__ == '__main__':
 
         #Graceful shutdown
         except KeyboardInterrupt:
-            textCommand(0x01)
             setRGB(0, 0, 0)
+            textCommand(0x01)
             #TODO turn off led and buzzer
             break
 
