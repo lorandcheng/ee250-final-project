@@ -157,8 +157,9 @@ if __name__ == '__main__':
 
         #Graceful shutdown
         except KeyboardInterrupt:
-            setRGB(0, 0, 0)
-            textCommand(0x01)
+            with lock:
+                setRGB(0, 0, 0)
+                textCommand(0x01)
             #TODO turn off led and buzzer
             break
 
