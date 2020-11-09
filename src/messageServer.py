@@ -8,7 +8,7 @@ import messageManager
 
 app = Flask('Cloud Messaging Server')
 
-HOST = '127.0.0.1'
+HOST = '0.0.0.0'
 PORT = '4200'
 
 @app.route('/send-message', methods=['POST'])
