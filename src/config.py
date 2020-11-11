@@ -48,4 +48,4 @@ def config():
 #     # return 0
 
 if __name__ == '__main__':
-    print(config())
+    config()
