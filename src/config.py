@@ -14,7 +14,7 @@ def config(filename='./database.ini', section='postgresql'):
  
     # get section, default to postgresql
     db = {}
-    
+    print("Success")
     # Checks to see if section (postgresql) parser exists
     if parser.has_section(section):
         params = parser.items(section)
