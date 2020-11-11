@@ -38,12 +38,12 @@ import configparser
 def config():
     config = configparser.ConfigParser()
     config.read('database.ini')
-    print(config['postgresql'])
 
     host = config['postgresql']['host']
     database = config['postgresql']['database']
     user = config['postgresql']['user']
     password = config['postgresql']['password']
+    print(host)
 
 #     # return 0
 
