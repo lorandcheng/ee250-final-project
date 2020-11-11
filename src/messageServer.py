@@ -45,7 +45,7 @@ def postMessageCallback():
     # Get the payload containing the sender, message, and timestamp
     payload = request.get_json()
     print(payload)
-    #TODO add message to db
+    writeToDB(payload)
     response = {'Response': 'Message sent'}
 
     # The object returned will be sent back as an HTTP message to the requester
@@ -53,12 +53,12 @@ def postMessageCallback():
 
 if __name__ == '__main__':
     
-    test = {
-        'sender': 'Lorand',
-        'message': 'testing message',
-        'timestamp': 'today'
-    }
-    writeToDB(test)
+    # test = {
+    #     'sender': 'Lorand',
+    #     'message': 'testing message',
+    #     'timestamp': 'today'
+    # }
+    # writeToDB(test)
 
     # Start the flask app
     app.run(debug=False, host=HOST, port=PORT)
