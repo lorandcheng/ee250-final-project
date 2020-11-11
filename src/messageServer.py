@@ -42,6 +42,6 @@ if __name__ == '__main__':
     # }
     # writeToDB(test)
 
-    messageManager = messageManager();
+    messageManager = messageManager()
     # Start the flask app
     app.run(debug=False, host=HOST, port=PORT)
