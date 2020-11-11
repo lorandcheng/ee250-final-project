@@ -9,7 +9,7 @@ class messageManager:
         """
         print('Starting Message Manager')
 
-    def addMessage(message):
+    def addMessage(self, message):
         """
         Summary: Adds provided message to the CloudSQL Postgres database
 
