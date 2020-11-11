@@ -2,9 +2,9 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
-
 import json
-import messageManager
+
+from messageManager import messageManager
 
 
 app = Flask('Cloud Messaging Server')
