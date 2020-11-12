@@ -23,7 +23,7 @@ class Notifier():
 
     def run(self):
         self.next_t+=self.increment
-        self.incomingMessages = self.messageHandler.getMessages(self.lastRead)
+        self.incomingMessages = self.messageHandler.getMessages(self.lastRead).json()
         if not self.done:
             threading.Timer( self.next_t - time.time(), self.run).start()
 
