@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import atexit
 import psycopg2
 from datetime import datetime
