@@ -38,6 +38,6 @@ if __name__ == '__main__':
     Testing purposes only
     """
     from constants import SERVER
-    messageClient = messageHandler("rpi",SERVER)
+    messageClient = messageHandler("Lorand",SERVER)
     notifier = Notifier(messageClient,1)
     print(notifier.getMessages())
