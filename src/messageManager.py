@@ -4,7 +4,6 @@ import psycopg2
 from datetime import datetime
 from config import config
 
-
 class messageManager:
     def __init__(self):
         """

@@ -55,7 +55,7 @@ class messageHandler:
             'lastRead': lastRead
         }
 
-        return requests.get("http://{}/get-message".format(self.serverAddress), params=params)
+        return requests.get("http://{}/get-messages".format(self.serverAddress), params=params)
 
     def getMessageHistory(self):
         """

@@ -16,21 +16,16 @@ class Notifier():
         self.messageHandler = messageHandler
         self.next_t = time.time()
         self.incomingMessages = []
-        self.lastReadTime = datetime.now()
+        self.lastRead = datetime.now()
         self.done=False
         self.increment = increment
         self.run()
 
     def run(self):
         self.next_t+=self.increment
-        self.incomingMessages = self.messageHandler.getMessages()
-
+        self.incomingMessages = self.messageHandler.getMessages(self.lastRead)
         if not self.done:
             threading.Timer( self.next_t - time.time(), self.run).start()
-
-    def messageReceived(self):
-        pass #
-
 
     def stop(self):
         self.done=True

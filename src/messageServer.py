@@ -29,7 +29,7 @@ def postMessageCallback():
     # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)
 
-@app.route('/get-message', methods=['GET'])
+@app.route('/get-messages', methods=['GET'])
 def gettMessageCallback():
     """
     Summary: A callback for when GET is called on [host]:[port]/get-message
@@ -44,7 +44,7 @@ def gettMessageCallback():
     response = messageManager.getMessage(sender, lastRead)
 
     # The object returned will be sent back as an HTTP message to the requester
-    return json.dumps(response)
+    return response
 
 if __name__ == '__main__':
     
