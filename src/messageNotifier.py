@@ -39,5 +39,5 @@ if __name__ == '__main__':
     """
     from constants import SERVER
     messageClient = messageHandler("rpi",SERVER)
-    notifier = Notifier(messageClient,1))
+    notifier = Notifier(messageClient,1)
     print(notifier.getMessages())
