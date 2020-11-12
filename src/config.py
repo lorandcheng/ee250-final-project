@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # This file was adapted from http://www.postgresqltutorial.com/postgresql-python/connect/
 
 # The following config() function reads in the database.ini file and returns the connection

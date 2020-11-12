@@ -32,7 +32,7 @@ class Notifier():
 
 if __name__ == '__main__':
     """
-    Testing purposes onlu
+    Testing purposes only
     """
     from constants import SERVER
     messageClient = messageHandler("rpi",SERVER)
