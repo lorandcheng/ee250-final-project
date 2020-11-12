@@ -50,12 +50,11 @@ class messageHandler:
         Summary: Sends a GET message to the server
         """
 
-        # params = {
-        #     'sender': self.name
-        # }
+        params = {
+            'sender': self.name
+        }
 
-        # return requests.get("http://{}/get-message".format(self.serverAddress), params=params)
-        print("getMessage() called")
+        return requests.get("http://{}/get-message".format(self.serverAddress), params=params)
 
     def getMessageHistory(self):
         """

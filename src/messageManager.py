@@ -44,7 +44,17 @@ class messageManager:
             sender (string): sender identity
         """
         self.cur.execute("SELECT * FROM messages WHERE id > (SELECT id FROM messages WHERE sender IN(%s) ORDER BY id DESC LIMIT 1)", sender)
-
+        rawResult = self.cur.fetchall()
+        result = []
+        for tpl in rawResult:
+            result.append({
+                'id': tpl[0],
+                'sender': tpl[1],
+                'message': tpl[2],
+                'timestamp': tpl[3]
+            })
+        print(result[0]['id'])
+        return result
 
     def cleanup(self):
         print("Running cleanup...")
