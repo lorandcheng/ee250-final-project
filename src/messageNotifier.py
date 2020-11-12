@@ -2,6 +2,7 @@
 import threading
 import time
 from messageHandler import messageHandler
+from datetime import datetime
 
 class Notifier():
     def __init__(self, messageHandler, increment):
@@ -14,19 +15,21 @@ class Notifier():
         """
         self.messageHandler = messageHandler
         self.next_t = time.time()
-        self.incomingMessage = ''
+        self.incomingMessages = []
+        self.lastReadTime = datetime.now()
         self.done=False
         self.increment = increment
         self.run()
 
     def run(self):
         self.next_t+=self.increment
-        self.messageHandler.getMessage()
+        self.incomingMessages = self.messageHandler.getMessages()
+
         if not self.done:
             threading.Timer( self.next_t - time.time(), self.run).start()
 
     def messageReceived(self):
-        return self.incomingMessage
+        pass #
 
 
     def stop(self):

@@ -1,7 +1,7 @@
 import json
 import requests
-import datetime
 
+from datetime import datetime
 from pprint import pprint
 
 class messageHandler:
@@ -32,7 +32,7 @@ class messageHandler:
         payload = {
             'sender': self.name,
             'message': message,
-            'timestamp': datetime.datetime.now()
+            'timestamp': datetime.now()
         }
 
         response = requests.post("http://{}/send-message".format(self.serverAddress),
@@ -45,13 +45,14 @@ class messageHandler:
         else:
             return 0
 
-    def getMessage(self):
+    def getMessages(self,lastRead):
         """
         Summary: Sends a GET message to the server
         """
 
         params = {
-            'sender': self.name
+            'sender': self.name,
+            'lastRead': lastRead
         }
 
         return requests.get("http://{}/get-message".format(self.serverAddress), params=params)

@@ -37,10 +37,11 @@ def gettMessageCallback():
     Returns:
         string: A JSON-formatted string containing the messages received from rpi since the last sent message
     """
-    
+
     # Get the payload containing the sender, message, and timestamp
     sender = request.args.get('sender')
-    response = messageManager.getMessage(sender)
+    lastRead = request.args.get('lastRead')
+    response = messageManager.getMessage(sender, lastRead)
 
     # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)

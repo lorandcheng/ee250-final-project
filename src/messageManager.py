@@ -37,14 +37,14 @@ class messageManager:
         # Update DB
         self.conn.commit()
 
-    def getMessage(self, sender):
+    def getMessage(self, sender, lastRead):
         """
         Summary: Retreives messages since last message sent by sender
 
         Args: 
             sender (string): sender identity
         """
-        self.cur.execute("SELECT * FROM messages WHERE id > (SELECT id FROM messages WHERE sender IN(%s) ORDER BY id DESC LIMIT 1)", (sender,))
+        self.cur.execute("SELECT * FROM messages WHERE id != (%s) AND timestamp > (%s)", (sender, lastRead))
         rawResult = self.cur.fetchall()
         result = []
         for tpl in rawResult:
@@ -65,4 +65,4 @@ if __name__ == '__main__':
     For testing purposes only!
     """
     messageManager = messageManager()
-    print(messageManager.getMessage("rpi"))
+    print(messageManager.getMessage("rpi","2020-11-10 22:14:28.208609"))
