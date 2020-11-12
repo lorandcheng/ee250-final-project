@@ -95,9 +95,13 @@ if __name__ == '__main__':
     state = 0 # 0 button is not pressed, 1 button is pressed, 2 message sent
     done = 0
     messageClient = messageHandler("rpi",SERVER)
+    notifier = Notifier(messageClient,1)
     while True:
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
+            if len(notifier.getMessages()) != 0:
+                state = 2
+                # TODO other cleanup
 
             # button is not pressed
             if state == 0:
