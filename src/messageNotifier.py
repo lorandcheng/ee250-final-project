@@ -27,6 +27,9 @@ class Notifier():
         if not self.done:
             threading.Timer( self.next_t - time.time(), self.run).start()
 
+    def getMessages():
+        return self.incomingMessages
+
     def stop(self):
         self.done=True
 
@@ -36,4 +39,5 @@ if __name__ == '__main__':
     """
     from constants import SERVER
     messageClient = messageHandler("rpi",SERVER)
-    notifier = Notifier(messageClient,1)
+    notifier = Notifier(messageClient,1))
+    print(notifier.getMessages())
