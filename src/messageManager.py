@@ -54,7 +54,6 @@ class messageManager:
                 'message': tpl[2],
                 'timestamp': tpl[3]
             })
-        print(result[0]['id'])
         return result
 
     def cleanup(self):
