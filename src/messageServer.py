@@ -44,7 +44,7 @@ def gettMessageCallback():
     response = messageManager.getMessage(sender, lastRead)
 
     # The object returned will be sent back as an HTTP message to the requester
-    return response
+    return json.dumps(response)
 
 if __name__ == '__main__':
     
