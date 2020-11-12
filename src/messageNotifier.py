@@ -27,7 +27,7 @@ class Notifier():
         if not self.done:
             threading.Timer( self.next_t - time.time(), self.run).start()
 
-    def getMessages():
+    def getMessages(self):
         return self.incomingMessages
 
     def stop(self):
