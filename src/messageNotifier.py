@@ -36,5 +36,5 @@ if __name__ == '__main__':
     Testing purposes onlu
     """
     from constants import SERVER
-    messageClient = messageHandler("test",SERVER)
+    messageClient = messageHandler("rpi",SERVER)
     notifier = Notifier(messageClient,1)
