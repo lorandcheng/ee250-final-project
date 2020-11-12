@@ -44,7 +44,7 @@ class messageManager:
         Args: 
             sender (string): sender identity
         """
-        self.cur.execute("SELECT * FROM messages WHERE id > (SELECT id FROM messages WHERE sender IN(%s) ORDER BY id DESC LIMIT 1)", sender)
+        self.cur.execute("SELECT * FROM messages WHERE id > (SELECT id FROM messages WHERE sender IN(%s) ORDER BY id DESC LIMIT 1)", (sender))
         rawResult = self.cur.fetchall()
         result = []
         for tpl in rawResult:
