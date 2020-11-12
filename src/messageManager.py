@@ -59,3 +59,10 @@ class messageManager:
     def cleanup(self):
         print("Running cleanup...")
         self.conn.close()
+
+if __name__ == '__main__':
+    """
+    For testing purposes only!
+    """
+    messageManager = messageManager()
+    print(messageManager.getMessage("rpi"))
