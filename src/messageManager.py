@@ -24,7 +24,7 @@ class messageManager:
         Summary: Adds provided message to the CloudSQL Postgres database
 
         Args: 
-            message (json): json body of message from rpi containing sender, message body, and timestamp
+            message (json): json body of message containing sender, message body, and timestamp
         """
 
         #extract values from message
@@ -35,6 +35,16 @@ class messageManager:
         self.cur.execute("INSERT INTO MESSAGES (SENDER,MESSAGE,TIMESTAMP) VALUES (%s, %s, %s)", (sender,body,timestamp))
         # Update DB
         self.conn.commit()
+
+    def getMessage(self, sender):
+        """
+        Summary: Retreives messages since last message sent by sender
+
+        Args: 
+            sender (string): sender identity
+        """
+        self.cur.execute("SELECT * FROM messages WHERE id > (SELECT id FROM messages WHERE sender IN(%s) ORDER BY id DESC LIMIT 1)", sender)
+
 
     def cleanup(self):
         print("Running cleanup...")

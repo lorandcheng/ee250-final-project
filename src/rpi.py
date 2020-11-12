@@ -5,6 +5,7 @@ import threading
 
 from lcdHandler import *
 from messageHandler import *
+from messageNotifier import *
 
 # GrovePi Modules
 sys.path.append('../grovepi/Software/Python/')
@@ -78,7 +79,6 @@ def duringPause(duration, done):
             return 1
     else:
         return 2
-
 
 def afterPress(duration):
     """

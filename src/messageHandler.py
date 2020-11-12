@@ -45,7 +45,24 @@ class messageHandler:
         else:
             return 0
 
-
     def getMessage(self):
-        pass
-    
+        """
+        Summary: Sends a GET message to the server
+        """
+
+        params = {
+            'sender': self.name
+        }
+
+        return requests.get("http://{}/get-message".format(self.serverAddress), params=params)
+
+    def getMessageHistory(self):
+        """
+        Summary: Sends a GET message to the server
+        """
+
+        params = {
+            'sender': self.name
+        }
+
+        return requests.get("http://{}/history".format(self.serverAddress), params=params)
