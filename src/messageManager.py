@@ -44,7 +44,7 @@ class messageManager:
         Args: 
             sender (string): sender identity
         """
-        self.cur.execute("SELECT * FROM messages WHERE id != (%s) AND timestamp > (%s)", (sender, lastRead))
+        self.cur.execute("SELECT * FROM messages WHERE sender != (%s) AND timestamp > (%s)", (sender, lastRead))
         rawResult = self.cur.fetchall()
         result = []
         for tpl in rawResult:
