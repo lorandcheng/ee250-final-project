@@ -64,5 +64,6 @@ if __name__ == '__main__':
     """
     For testing purposes only!
     """
+    from pprint import pprint
     messageManager = messageManager()
-    print(messageManager.getMessage("Lorand","2020-11-10 12:34:56.789012"))
+    pprint(messageManager.getMessage("Lorand","2020-11-10 12:34:56.789012"))
