@@ -1,12 +1,17 @@
 import threading
 import time
-import messageHandler
+from messageHandler import messageHandler
 
 class Notifier():
-    """
-    Summary: Class for checking incoming messages
-    """
-    def __init__(self, increment):
+    def __init__(self, messageHandler, increment):
+        """
+        Summary: Class for checking incoming messages
+
+        Args:
+            messageHandler (messageHandler object): messageHandler to send the get requests
+            increment (int): time delay in seconds between get requests
+        """
+        self.messageHandler = messageHandler
         self.next_t = time.time()
         self.incomingMessage = ''
         self.done=False
@@ -15,6 +20,7 @@ class Notifier():
 
     def run(self):
         self.next_t+=self.increment
+        self.messageHandler.getMessage()
         if not self.done:
             threading.Timer( self.next_t - time.time(), self.run).start()
 
@@ -24,3 +30,11 @@ class Notifier():
 
     def stop(self):
         self.done=True
+
+if __name__ == '__main__':
+    """
+    Testing purposes onlu
+    """
+    from constants import SERVER
+    messageClient = messageHandler("test",SERVER)
+    notifier = Notifier(messageClient,1)

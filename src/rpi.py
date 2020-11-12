@@ -3,44 +3,26 @@ import time
 import sys
 import threading
 
+from constants import *
 from lcdHandler import *
-from messageHandler import *
-from messageNotifier import *
+from messageHandler import messageHandler
+from messageNotifier import Notifier
+from morseCode import Morse_Code_Bin_Tree
 
 # GrovePi Modules
 sys.path.append('../grovepi/Software/Python/')
 import grovepi
-
-#Declare message tools
-from morseCode import Morse_Code_Bin_Tree, Node
-morse = Morse_Code_Bin_Tree()
-letter = ""
-message = ""
-buf = [] # buffer for storing letter and message
-
-
-"""
-Declare port numbers, initialize pins, create lock
-"""
-LED = 1 #D1
 grovepi.pinMode(LED,"OUTPUT")
-BUTTON = 3 #D3
 grovepi.pinMode(BUTTON,"INPUT")
 # LCD connected to I2C port
 lcdInit()
 lock = threading.Lock() #define I2C lock
 
-# Define press lengths (s)
-DASH = 0.3
-SEND = 3
-
-# Define pause lengths (s)
-END = 0.7
-SPACE = 3
-
-HOST = '35.239.226.249'
-PORT = '4200'
-SERVER = f'{HOST}:{PORT}'
+#Declare message tools
+morse = Morse_Code_Bin_Tree()
+letter = ""
+message = ""
+buf = [] # buffer for storing letter and message
 
 def duringPause(duration, done):
     """
