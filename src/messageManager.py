@@ -65,4 +65,4 @@ if __name__ == '__main__':
     For testing purposes only!
     """
     messageManager = messageManager()
-    print(messageManager.getMessage("rpi","2020-11-10 22:14:28.208609"))
+    print(messageManager.getMessage("Lorand","2020-11-10 12:34:56.789012"))
