@@ -5,7 +5,7 @@ from flask_socketio import SocketIO
 
 from messageManager import messageManager
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='./templates')
 socketio = SocketIO(app)
 
 HOST = '0.0.0.0'
