@@ -100,7 +100,7 @@ if __name__ == '__main__':
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
             if len(notifier.getMessages()) != 0:
-                state = 2
+                # state = 2
                 # TODO other cleanup
 
             # button is not pressed

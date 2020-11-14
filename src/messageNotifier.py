@@ -16,7 +16,7 @@ class Notifier():
         self.messageHandler = messageHandler
         self.next_t = time.time()
         self.incomingMessages = []
-        self.lastRead = str(datetime.now())
+        self.lastRead = '2020-11-10 21:49:48.388739'#str(datetime.now())
         self.done=False
         self.increment = increment
         self.run()
@@ -29,6 +29,9 @@ class Notifier():
 
     def getMessages(self):
         return self.incomingMessages
+
+    def markMessagesRead(self):
+        self.lastRead = str(datetime.now())
 
     def stop(self):
         self.done=True

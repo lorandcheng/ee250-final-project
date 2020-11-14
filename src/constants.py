@@ -1,7 +1,7 @@
-
 # Grovepi pins
-LED = 1 #D1
-BUTTON = 3 #D3
+BUTTON = 2 #D2
+LED = 3 #D3
+BUZZER = 4 #D4
 
 # Define press lengths (s)
 DASH = 0.3
