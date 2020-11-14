@@ -56,7 +56,7 @@ def gettMessageCallback():
     return json.dumps(response)
 
 @socketio.on('initial-connect')
-def handle_connection(message):
+def handleConnection(message):
     print(message)
 
 if __name__ == '__main__':
