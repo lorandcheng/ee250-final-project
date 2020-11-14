@@ -5,7 +5,6 @@ HOST = '0.0.0.0'
 PORT = '4200'
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
 @app.route('/')

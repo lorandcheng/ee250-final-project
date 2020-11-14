@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
-from flask import Flask, render_template
-from flask import jsonify
-from flask import request
 import json
+from flask import Flask, request, jsonify, render_template
+from flask_socketio import SocketIO
 
 from messageManager import messageManager
 
 app = Flask('Cloud Messaging Server')
+socketio = SocketIO(app)
 
 HOST = '0.0.0.0'
 PORT = '4200'
+
+@app.route('/')
+def home():
+   return render_template('index.html')
 
 @app.route('/send-message', methods=['POST'])
 def postMessageCallback():
@@ -46,6 +50,10 @@ def gettMessageCallback():
     # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)
 
+@socketio.on('initial-connect')
+def handle_connection(message):
+    print(message)
+
 if __name__ == '__main__':
     
     # test = {
@@ -56,5 +64,5 @@ if __name__ == '__main__':
     # writeToDB(test)
 
     messageManager = messageManager()
-    # Start the flask app
-    app.run(debug=False, host=HOST, port=PORT)
+    # Start the flask app with socketio
+    socketio.run(app, host=HOST, port=PORT)
