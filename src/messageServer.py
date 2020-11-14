@@ -2,7 +2,7 @@
 import json
 from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO
-
+from datetime import datetime
 from messageManager import messageManager
 
 app = Flask(__name__)
@@ -25,7 +25,12 @@ def postMessageCallback():
     """
 
     # Get the payload containing the sender, message, and timestamp
-    payload = request.get_json()
+    if type(request.get_data())==bytes:
+        payload = request.get_data().decode('utf-8')
+        payload = json.loads(payload)
+        payload['timestamp'] = str(datetime.now())
+    else:
+        payload = request.get_json()
     print(payload)
     messageManager.addMessage(payload)
     response = {'Response': 'Message sent'}

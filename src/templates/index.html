@@ -22,17 +22,20 @@
     </div>
 </div>
 <script>
+    const HOST = '35.239.226.249'
+    const PORT = '4200'
+    const SERVER = `${HOST}:${PORT}`
     var socket = io();
     socket.on('connect', function() {
         socket.emit('initial-connect', 'A message client connected!');
     });
     $(() => {
         $("#send").click(()=>{
-            var message ={
-                name: $("#name").val(),
+            var message = {
+                sender: $("#name").val(),
                 message: $("#message").val()
             }
-            postMessage(message);
+            postMessage(JSON.stringify(message));
         })
         getMessages();
     })
@@ -44,12 +47,12 @@
     }
 
     function getMessages() {
-        $.get('http://localhost:3000/messages', (data) => {
+        $.get(`http://${SERVER}/test`, (data) => {
             data.forEach(addMessage);
         })
     }
 
     function postMessage(message) {
-        $.post('http://localhost:3000/messages', message);
+        $.post(`http://${SERVER}/send-message`, message);
     }
 </script>

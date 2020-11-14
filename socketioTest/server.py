@@ -15,6 +15,7 @@ def home():
 
 @app.route('/test', methods=['POST'])
 def postMessage():
+    print(type(request.get_data())==bytes)
     payload = request.get_data().decode('utf-8')
     payload = json.loads(payload)
     payload['timestamp'] = str(datetime.now())
@@ -25,7 +26,7 @@ def postMessage():
     return json.dumps(response)
 
 @socketio.on('initial-connect')
-def handle_connection(message):
+def handleConnection(message):
     print(message)
 
 if __name__ == '__main__':
