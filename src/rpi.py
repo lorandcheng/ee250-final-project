@@ -144,10 +144,10 @@ if __name__ == '__main__':
             elif state == 2:
                 writeLetter(buf, "Incoming Message")
                 writeMessage(buf, "")
-                for i in len(received):
-                    writeLetter(buf, f"From: {received[i]['sender']}")
-                    for j in len(i['message']):
-                        writeMessage(buf, received[i]['message'][j:])
+                for message in received:
+                    writeLetter(buf, f"From: {message['sender']}")
+                    for j in range(len(message['message'])):
+                        writeMessage(buf, message['message'][j:])
                         time.sleep(0.1)
                 if(buttonPressed()):
                     while buttonPressed():
