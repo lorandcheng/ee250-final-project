@@ -163,7 +163,7 @@ if __name__ == '__main__':
                 with lock:
                     writeLetter(buf, "Hold button")
                     writeMessage(buf, "to replay")
-                time.sleep(0.3)
+                time.sleep(1)
                 if(buttonPressed()):
                     pass
                 else:
