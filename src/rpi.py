@@ -100,6 +100,7 @@ if __name__ == '__main__':
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
             if len(notifier.getMessages()) != 0:
+                print(len(notifier.getMessages()))
                 notifier.markMessagesRead()
                 print(notifier.getMessages())
                 # state = 2
