@@ -27,7 +27,7 @@ class Notifier():
         self.messageHandler = messageHandler
         self.next_t = time.time()
         self.incomingMessages = []
-        self.lastRead = str(convertDatetimeTz(datetime.now(),'PST','UTC'))
+        self.lastRead = str(convertDatetimeTz(datetime.now(),'America/Los_Angeles','Europe/London'))
         self.done=False
         self.increment = increment
         self.run()
