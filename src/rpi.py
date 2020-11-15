@@ -144,8 +144,8 @@ if __name__ == '__main__':
             elif state == 2:
                 writeLetter(buf, "Incoming Message")
                 writeMessage(buf, "")
-                writeLetter(buf, f"From: {received['sender']}")
                 for i in len(received['message']):
+                    writeLetter(buf, f"From: {received['sender']}")
                     writeMessage(buf, received['message'][i:])
                     time.sleep(0.1)
                 if(buttonPressed()):
