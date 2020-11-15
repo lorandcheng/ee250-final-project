@@ -62,7 +62,7 @@
         $.get(`http://${SERVER}/history`, (data) => {
             data.forEach(addMessage);
         })
-        $("#messages").append('<h4> history </h4>'
+        $("#messages").append('<h4> history </h4>')
     }
 
     function postMessage(message) {
