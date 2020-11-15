@@ -148,7 +148,7 @@ if __name__ == '__main__':
                     writeLetter(buf, f"From: {message['sender']}")
                     for j in range(len(message['message'])):
                         writeMessage(buf, message['message'][j:])
-                        time.sleep(0.1)
+                        time.sleep(0.5)
                 if(buttonPressed()):
                     while buttonPressed():
                         time.sleep(0.05)
