@@ -45,6 +45,7 @@ def _writeBuffer(buffer):
 def writeIncoming(messages):
     setText("Incoming Message")
     setText("")
+    buf = []
     for message in messages:
         buf[0:16] = f"From: {message['sender']}"
         for j in range(len(message['message'])):
