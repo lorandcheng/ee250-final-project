@@ -47,7 +47,8 @@ def writeIncoming(messages):
     setText("")
     buf = []
     for message in messages:
-        buf[0:16] = f"From: {message['sender']}"
+        firstLine = f"From: {message['sender']}"
+        buf[0:16] = f'{firstLine: <16}'
         for j in range(len(message['message'])):
             buf[16:] = message['message'][j:]
             setText(buf)
