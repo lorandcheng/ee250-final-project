@@ -25,13 +25,13 @@ def postMessageCallback():
     """
 
     # Get the payload containing the sender, message, and timestamp
-    if type(request.get_data())==bytes:
-        payload = request.get_data().decode('utf-8')
-        payload = json.loads(payload)
-        payload['timestamp'] = str(datetime.now())
-    else:
-        payload = request.get_json()
-        print('rpi-message')
+    # if type(request.get_data())==bytes:
+    payload = request.get_data().decode('utf-8')
+    payload = json.loads(payload)
+    payload['timestamp'] = str(datetime.now())
+    # else:
+    #     payload = request.get_json()
+    #     print('rpi-message')
     print(payload)
     # add message to database
     messageManager.addMessage(payload)
