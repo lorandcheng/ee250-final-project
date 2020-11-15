@@ -52,6 +52,7 @@ def getMessageCallback():
     # Get the payload containing the sender, message, and timestamp
     sender = request.args.get('sender')
     lastRead = request.args.get('lastRead')
+    print(lastRead)
     response = messageManager.getMessage(sender, lastRead)
     return json.dumps(response)
 
