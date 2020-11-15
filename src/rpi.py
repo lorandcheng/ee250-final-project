@@ -95,11 +95,12 @@ if __name__ == '__main__':
     state = 0 # 0 button is not pressed, 1 button is pressed, 2 message sent
     done = 0
     messageClient = messageHandler("rpi",SERVER)
-    # notifier = Notifier(messageClient,1)
+    notifier = Notifier(messageClient,1)
     while True:
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
-            # if len(notifier.getMessages()) != 0:
+            if len(notifier.getMessages()) != 0:
+                print(notifier.getMessages())
                 # state = 2
                 # TODO other cleanup
 
@@ -143,11 +144,14 @@ if __name__ == '__main__':
 
         #Graceful shutdown
         except KeyboardInterrupt:
-            with lock:
+            try:
                 setRGB(0, 0, 0)
                 textCommand(0x01)
-            #TODO turn off led and buzzer
-            break
+                #TODO turn off led and buzzer
+                break
+            except:
+                pass
+            
 
         # retry after LCD error
         except IOError as err:
