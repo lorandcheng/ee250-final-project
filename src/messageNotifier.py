@@ -32,6 +32,7 @@ class Notifier():
 
     def markMessagesRead(self):
         self.lastRead = str(datetime.now())
+        self.incomingMessages = []
 
     def stop(self):
         self.done=True
