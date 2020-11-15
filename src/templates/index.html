@@ -60,6 +60,7 @@
     function getMessageHistory() {
         clearMessages()
         $.get(`http://${SERVER}/history`, (data) => {
+            data = JSON.parse(data)
             data.forEach(addMessage);
         })
         $("#messages").append('<h4> history </h4>')

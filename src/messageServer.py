@@ -60,7 +60,6 @@ def historyCallback():
         string: A JSON-formatted string containing the entire message history in the db
     """
     response = messageManager.history()
-    print(response)
     return json.dumps(response)
 
 @socketio.on('initial-connect')
