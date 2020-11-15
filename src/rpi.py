@@ -95,7 +95,7 @@ def alert():
     """
     with lock:
         grovepi.digitalWrite(LED,1)
-        for i in range(3)
+        for i in range(3):
             grovepi.digitalWrite(BUZZER,1)
             time.sleep(0.1)
             grovepi.digitalWrite(BUZZER,0)
