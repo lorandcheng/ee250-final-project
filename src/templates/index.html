@@ -54,7 +54,15 @@
     }
 
     function addMessage(message){
-        $("#messages").append(`<h4>${message['sender']}</h4><h6 align = right>${message['timestamp']}</h6>`)
+        $("#messages").append(`
+            <h5>${message['sender']}</h5>
+            <p style="text-align:left;">
+                ${message['message']}
+                <span style="float:right;">
+                    >${message['timestamp']}
+                </span>
+            </p>
+        `)
     }
 
     function getMessageHistory() {
