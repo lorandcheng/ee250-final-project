@@ -149,7 +149,7 @@ if __name__ == '__main__':
                     time.sleep(1)
                 else:
                     time.sleep(0.2)
-                index++
+                index+=1
                 if(buttonPressed()):
                     while buttonPressed():
                         time.sleep(0.05)
