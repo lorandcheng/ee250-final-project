@@ -42,7 +42,7 @@ class Notifier():
         return self.incomingMessages
 
     def markMessagesRead(self):
-        self.lastRead = str(convertDatetimeTz(datetime.now(),'PST','UTC'))
+        self.lastRead = str(convertDatetimeTz(datetime.now(),'America/Los_Angeles','Europe/London'))
         self.incomingMessages = []
 
     def stop(self):
