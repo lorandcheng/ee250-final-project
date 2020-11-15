@@ -59,6 +59,7 @@ def historyCallback():
     Returns:
         string: A JSON-formatted string containing the entire message history in the db
     """
+    print('history')
     response = messageManager.history()
     return json.dumps(response)
 
