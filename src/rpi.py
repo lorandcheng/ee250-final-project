@@ -144,24 +144,16 @@ if __name__ == '__main__':
 
             # message received
             elif state == 2:
-                writeIncoming(received, index)
-                if index ==0:
-                    time.sleep(1)
-                else:
-                    time.sleep(0.2)
-                index+=1
-                if(buttonPressed()):
-                    while buttonPressed():
-                        time.sleep(0.05)
-                    state = 0
-                    lcdInit()
-                    with lock:
-                        writeLetter(buf, " ")
-                        writeMessage(buf, message)
-                        letter = ""
-                    buf = []
-                    done = 0
-                    timerStart = 0
+                writeIncoming(received)
+                state = 0
+                lcdInit()
+                with lock:
+                    writeLetter(buf, " ")
+                    writeMessage(buf, message)
+                    letter = ""
+                buf = []
+                done = 0
+                timerStart = 0
 
 
         #Graceful shutdown

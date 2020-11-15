@@ -42,16 +42,22 @@ def _writeBuffer(buffer):
         lcdOutput = buffer[:16]+buffer[-16:]
     setText(lcdOutput)
 
-def writeIncoming(messages, index):
+def writeIncoming(messages):
     setText("Incoming Message")
+    time.sleep(0.7)
     setText("")
     buf = []
     for message in messages:
         firstLine = f"From: {message['sender']}"
         buf[0:16] = f'{firstLine: <16}'
-        # for j in range(len(message['message'])):
-        buf[16:] = message['message'][index:]
-        setText(buf)
+        for j in range(len(message['message'])):
+            buf[16:] = message['message'][j:]
+            setText(buf)
+            if j == 0:
+                time.sleep(1)
+            else:
+                time.sleep(0.1)
+            
 
 
 if __name__ == '__main__':
