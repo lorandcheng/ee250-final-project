@@ -54,14 +54,13 @@
     }
 
     function addMessage(message){
-        $("#messages").append(`<h4> ${message} </h4>`)
+        $("#messages").append(`${message}`)
     }
 
     function getMessageHistory() {
         clearMessages()
         $.get(`http://${SERVER}/history`, (data) => {
-            $("#messages").append(`${data}`)
-            //data.forEach(addMessage);
+            data.forEach(addMessage);
         })
         $("#messages").append('<h4> history </h4>')
     }
