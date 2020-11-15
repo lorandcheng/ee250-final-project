@@ -125,7 +125,7 @@ if __name__ == '__main__':
                 elif SEND < elapsedTime and not done:
                     state = 0
                     writeLetter(buf, "Message Sending")
-                    print("Message Sending:" + message)
+                    print("Message Sending:",message)
                     success = messageClient.sendMessage(message)
                     time.sleep(2)
                     if success:
