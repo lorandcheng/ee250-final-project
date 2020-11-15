@@ -54,7 +54,7 @@
     }
 
     function addMessage(message){
-        $("#messages").append(`${message['sender']}`)
+        $("#messages").append(`<h4>${message['sender']}</h4><h6 align = right>${message['timestamp']}</h6>`)
     }
 
     function getMessageHistory() {
@@ -63,7 +63,6 @@
             data = JSON.parse(data)
             data.forEach(addMessage);
         })
-        $("#messages").append('<h4> history </h4>')
     }
 
     function postMessage(message) {
