@@ -81,4 +81,4 @@ if __name__ == '__main__':
     """
     from pprint import pprint
     messageManager = messageManager()
-    pprint(messageManager.getMessage("Lorand","2020-11-10 12:34:56.789012"))
+    pprint(messageManager.getMessage("rpi","2020-11-15 03:11:00"))

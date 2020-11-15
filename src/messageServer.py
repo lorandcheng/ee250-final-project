@@ -46,7 +46,7 @@ def getMessageCallback():
     Summary: A callback for when GET is called on [host]:[port]/get-message
 
     Returns:
-        string: A JSON-formatted string containing the messages received from rpi since the last sent message
+        string: A JSON-formatted string containing the messages received since the last message sent by caller
     """
 
     # Get the payload containing the sender, message, and timestamp
