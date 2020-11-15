@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# 
+# Author: Lorand Cheng https://github.com/lorandcheng
+# Date: Nov 15, 2020
+# Project: USC EE250 Final Project, Morse Code Translator and Messenger
+# 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 import atexit
 import psycopg2
 from datetime import datetime
@@ -27,11 +34,11 @@ class messageManager:
             message (json): json body of message containing sender, message body, and timestamp
         """
 
-        #extract values from message
+        # extract values from message
         sender = message['sender']
         body = message['message']
         timestamp = message['timestamp']
-        # Execute SQL command
+        # Execute SQL command to add message
         self.cur.execute("INSERT INTO MESSAGES (SENDER,MESSAGE,TIMESTAMP) VALUES (%s, %s, %s)", (sender,body,timestamp))
         # Update DB
         self.conn.commit()
@@ -43,8 +50,11 @@ class messageManager:
         Args: 
             sender (string): sender identity
         """
+
+        # execute SQL command and retreive results
         self.cur.execute("SELECT * FROM messages WHERE sender != (%s) AND timestamp > (%s) ORDER BY timestamp", (sender, lastRead))
         rawResult = self.cur.fetchall()
+        # parse results into a list of message objects
         result = []
         for tpl in rawResult:
             result.append({
@@ -59,8 +69,11 @@ class messageManager:
         """
         Summary: Pulls message history from db
         """
+
+        # execute SQL command and retreive results 
         self.cur.execute("SELECT * FROM messages ORDER BY timestamp")
         rawResult = self.cur.fetchall()
+        # parse results into a list of message objects
         result = []
         for tpl in rawResult:
             result.append({
@@ -72,6 +85,9 @@ class messageManager:
         return result
 
     def cleanup(self):
+        """
+        Summary: close the connection to the database on termination
+        """
         print("Running cleanup...")
         self.conn.close()
 

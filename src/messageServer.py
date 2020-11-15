@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# 
+# Author: Lorand Cheng https://github.com/lorandcheng
+# Date: Nov 15, 2020
+# Project: USC EE250 Final Project, Morse Code Translator and Messenger
+# 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 import json
 from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO
@@ -13,7 +20,10 @@ PORT = '4200'
 
 @app.route('/')
 def home():
-   return render_template('index.html')
+    """
+    Summary: serves index.html file to clients connecting on the home page
+    """
+    return render_template('index.html')
 
 @app.route('/send-message', methods=['POST'])
 def postMessageCallback():
@@ -64,11 +74,15 @@ def historyCallback():
     Returns:
         string: A JSON-formatted string containing the entire message history in the db
     """
+
     response = messageManager.history()
     return json.dumps(response)
 
 @socketio.on('initial-connect')
 def handleConnection(message):
+    """
+    Summary: handles intial connection
+    """
     print(message)
 
 if __name__ == '__main__':

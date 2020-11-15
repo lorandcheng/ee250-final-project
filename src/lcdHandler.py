@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# 
+# Author: Lorand Cheng https://github.com/lorandcheng
+# Date: Nov 15, 2020
+# Project: USC EE250 Final Project, Morse Code Translator and Messenger
+# 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 import sys
 
 # This append is to support importing the LCD library.
@@ -7,35 +14,43 @@ from grove_rgb_lcd import *
 
 def lcdInit():
     """
-    Initialize LCD
+    Summary: Initialize LCD
     """
+    
     setRGB(0,128,64)
     textCommand(0x01) # clear display
 
 def writeLetter(buffer, letter):
     """
-    Prints out letter on first line of lcd
-    buffer - list containing string buffer
-    letter - letter to overwrite first line [0:16] of buffer
+    Summary: Prints out letter on first line of lcd
+    Args:
+        buffer (list): list containing string buffer
+        letter (string): letter to overwrite first line [0:16] of buffer
     """
+
     paddedLetter = f'{letter: <16}'
     buffer[0:16] = paddedLetter
     _writeBuffer(buffer)
 
 def writeMessage(buffer, message):
     """
-    Prints out message on second line of lcd
-    buffer - list containing string buffer
-    message - message to overwrite second line [16:] of buffer
+    Summary: Prints out message on second line of lcd
+    Args:
+        buffer (list): list containing string buffer
+        message (string): message to overwrite second line [16:] of buffer
     """
+
     buffer[16:] = message
     _writeBuffer(buffer)
 
 
 def _writeBuffer(buffer):
     """
-    Writes the contents of the buffer to the LCD
+    Summary: Writes the contents of the buffer to the LCD
+    Args:
+        buffer(list: list containing string buffer
     """
+
     if len(buffer) < 32:
         lcdOutput = buffer
     else:
@@ -43,8 +58,13 @@ def _writeBuffer(buffer):
     setText(lcdOutput)
 
 def writeIncoming(messages):
+    """
+    Summary: displays incoming message on the LCD, scrolling the second line to show the full message
+    Args:
+        messages (list): list of message objects with fields 'sender' and 'message' required
+    """
+
     setText("Incoming Message")
-    
     time.sleep(0.7)
     setText("")
     buf = []
@@ -55,7 +75,7 @@ def writeIncoming(messages):
             buf[16:] = message['message'][j:]
             setText(buf)
             if j == 0:
-                time.sleep(1)
+                time.sleep(2)
             else:
                 time.sleep(0.1)
             

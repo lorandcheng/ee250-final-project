@@ -1,3 +1,11 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# 
+# Author: Lorand Cheng https://github.com/lorandcheng
+# Date: Nov 15, 2020
+# Project: USC EE250 Final Project, Morse Code Translator and Messenger
+# 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 # Grovepi pins
 BUTTON = 2 #D2
 LED = 3 #D3

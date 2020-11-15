@@ -1,3 +1,10 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# 
+# Author: Lorand Cheng https://github.com/lorandcheng
+# Date: Nov 15, 2020
+# Project: USC EE250 Final Project, Morse Code Translator and Messenger
+# 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 import json
 import requests
 
