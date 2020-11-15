@@ -160,14 +160,20 @@ if __name__ == '__main__':
             # message received
             elif state == 2:
                 alert()
-                state = 0
                 with lock:
+                    writeLetter(buf, "Hold button")
+                    writeMessage(buf, "to replay")
+                time.sleep(0.3)
+                if(buttonPressed()):
+                    pass
+                else:
                     writeLetter(buf, " ")
                     writeMessage(buf, message)
+                    state = 0
                     letter = ""
-                buf = []
-                done = 0
-                timerStart = 0
+                    buf = []
+                    done = 0
+                    timerStart = 0
 
 
         #Graceful shutdown
