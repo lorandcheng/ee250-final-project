@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import threading
 import time
+import pytz
 from messageHandler import messageHandler
 from datetime import datetime
 
@@ -16,7 +17,7 @@ class Notifier():
         self.messageHandler = messageHandler
         self.next_t = time.time()
         self.incomingMessages = []
-        self.lastRead = str(datetime.now())
+        self.lastRead = str(convertDatetimeTz(datetime.now(),'PST','UTC'))
         self.done=False
         self.increment = increment
         self.run()
@@ -31,8 +32,19 @@ class Notifier():
         return self.incomingMessages
 
     def markMessagesRead(self):
-        self.lastRead = str(datetime.now())
+        self.lastRead = str(convertDatetimeTz(datetime.now(),'PST','UTC'))
         self.incomingMessages = []
+
+    def convertDatetimeTz(self, dt, tz1, tz2):
+        tz1 = pytz.timezone(tz1)
+        tz2 = pytz.timezone(tz2)
+
+        dt = datetime.datetime.strptime(dt,"%Y-%m-%d %H:%M:%S")
+        dt = tz1.localize(dt)
+        dt = dt.astimezone(tz2)
+        dt = dt.strftime("%Y-%m-%d %H:%M:%S")
+
+        return dt
 
     def stop(self):
         self.done=True
