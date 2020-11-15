@@ -9,9 +9,15 @@
 <div class="container">
     <br>
     <div class = "jumbotron">
-        <h1 class="display-4">Send Message</h1>
+        <h1 class="display-4">Message Client</h1>
         <br>
-        <input id="command" class="form-control" placeholder="Enter a command: 'send' or 'history'. 'history' does not require a message">
+        <p>This is a message client that you can use to communicate with the rpi and other message clients. <br>
+            Commands (required): 'send', 'history' <br>
+            Name (required): any name <br>
+            Message (required for send): any message
+        </p>
+        <br>
+        <input id="command" class="form-control" placeholder="Command">
         <br>
         <input id="name" class="form-control" placeholder="Name">
         <br>
@@ -37,7 +43,12 @@
                 sender: $("#name").val(),
                 message: $("#message").val()
             }
-            postMessage(JSON.stringify(message));
+            if($("command").val()==='send') {
+                postMessage(JSON.stringify(message));
+            }
+            else if($("command").val()==='history') {
+
+            }
         })
         getMessages();
     })
