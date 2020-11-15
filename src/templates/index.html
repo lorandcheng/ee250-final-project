@@ -41,7 +41,7 @@
                 postMessage(JSON.stringify(message));
             }
             else if($("#command").val()==='history') {
-
+                getMessageHistory()
             }
         })
         getMessages();
@@ -49,12 +49,17 @@
 
     socket.on('message', addMessage);
 
+    function clearMessages(){
+        $("#messages").empty()
+    }
+
     function addMessage(message){
         $("#messages").append(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
     }
 
-    function getMessages() {
-        $.get(`http://${SERVER}/test`, (data) => {
+    function getMessageHistory() {
+        clearMessages()
+        $.get(`http://${SERVER}/history`, (data) => {
             data.forEach(addMessage);
         })
     }

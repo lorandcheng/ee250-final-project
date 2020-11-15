@@ -34,12 +34,10 @@ def postMessageCallback():
     print(payload)
     messageManager.addMessage(payload)
     response = {'Response': 'Message sent'}
-
-    # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)
 
 @app.route('/get-messages', methods=['GET'])
-def gettMessageCallback():
+def getMessageCallback():
     """
     Summary: A callback for when GET is called on [host]:[port]/get-message
 
@@ -51,8 +49,17 @@ def gettMessageCallback():
     sender = request.args.get('sender')
     lastRead = request.args.get('lastRead')
     response = messageManager.getMessage(sender, lastRead)
+    return json.dumps(response)
 
-    # The object returned will be sent back as an HTTP message to the requester
+@app.route('/history', methods=['GET'])
+def historyCallback():
+    """
+    Summary: A callback for when GET is called on [host]:[port]/history
+
+    Returns:
+        string: A JSON-formatted string containing the entire message history in the db
+    """
+    response = messageManager.history()
     return json.dumps(response)
 
 @socketio.on('initial-connect')

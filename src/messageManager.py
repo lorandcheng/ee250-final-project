@@ -43,7 +43,23 @@ class messageManager:
         Args: 
             sender (string): sender identity
         """
-        self.cur.execute("SELECT * FROM messages WHERE sender != (%s) AND timestamp > (%s)", (sender, lastRead))
+        self.cur.execute("SELECT * FROM messages WHERE sender != (%s) AND timestamp > (%s) ORDER BY timestamp", (sender, lastRead))
+        rawResult = self.cur.fetchall()
+        result = []
+        for tpl in rawResult:
+            result.append({
+                'id': tpl[0],
+                'sender': tpl[1],
+                'message': tpl[2],
+                'timestamp': tpl[3]
+            })
+        return result
+
+    def history(self):
+        """
+        Summary: Pulls message history from db
+        """
+        self.cur.execute("SELECT * FROM messages ORDER BY timestamp")
         rawResult = self.cur.fetchall()
         result = []
         for tpl in rawResult:
