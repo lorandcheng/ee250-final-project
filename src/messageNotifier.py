@@ -56,6 +56,6 @@ if __name__ == '__main__':
     messageClient = messageHandler("Lorand",SERVER)
     notifier = Notifier(messageClient,1)
     while True:
-        for message in notifier.getMessages()):
+        for message in notifier.getMessages():
             print(message['sender'])
         time.sleep(1)
