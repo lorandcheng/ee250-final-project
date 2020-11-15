@@ -37,10 +37,10 @@
                 sender: $("#name").val(),
                 message: $("#message").val()
             }
-            if($("command").val()==='send') {
+            if($("command").val()=='send') {
                 postMessage(JSON.stringify(message));
             }
-            else if($("command").val()==='history') {
+            else if($("command").val()=='history') {
 
             }
         })
