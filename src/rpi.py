@@ -22,6 +22,7 @@ lock = threading.Lock() #define I2C lock
 morse = Morse_Code_Bin_Tree()
 letter = ""
 message = ""
+received = ""
 buf = [] # buffer for storing letter and message
 
 def duringPause(duration, done):
@@ -87,7 +88,6 @@ def buttonPressed():
     with lock:
         return grovepi.digitalRead(BUTTON)
 
-
 if __name__ == '__main__':
 
     # initialize state machine variables
@@ -100,9 +100,10 @@ if __name__ == '__main__':
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
             if len(notifier.getMessages()) != 0:
-                print(notifier.getMessages())
+                received = notifier.getMessages()
+                print("Incoming message"+received)
                 notifier.markMessagesRead()
-                # state = 2
+                state = 2
                 # TODO other cleanup
 
             # button is not pressed
@@ -141,15 +142,34 @@ if __name__ == '__main__':
 
             # message received
             elif state == 2:
-                pass
+                writeLetter(buf, "Incoming Message")
+                writeMessage(buf, "")
+                writeLetter(buf, f"From: {received['sender']}")
+                for i in len(received['message']):
+                    writeMessage(buf, received['message'][i:])
+                    time.sleep(0.1)
+                if(buttonPressed()):
+                    while buttonPressed():
+                        time.sleep(0.05)
+                    state = 0
+                    lcdInit()
+                    with lock:
+                        writeLetter(buf, " ")
+                        writeMessage(buf, message)
+                        letter = ""
+                    buf = []
+                    done = 0
+                    timerStart = 0
+
 
         #Graceful shutdown
         except KeyboardInterrupt:
             try:
-                setRGB(0, 0, 0)
-                textCommand(0x01)
-                #TODO turn off led and buzzer
-                break
+                with lock:
+                    setRGB(0, 0, 0)
+                    textCommand(0x01)
+                    #TODO turn off led and buzzer
+                    break
             except:
                 pass
             
