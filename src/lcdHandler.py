@@ -44,6 +44,7 @@ def _writeBuffer(buffer):
 
 def writeIncoming(messages):
     setText("Incoming Message")
+    
     time.sleep(0.7)
     setText("")
     buf = []

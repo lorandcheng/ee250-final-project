@@ -12,8 +12,9 @@ from morseCode import Morse_Code_Bin_Tree
 # GrovePi Modules
 sys.path.append('../grovepi/Software/Python/')
 import grovepi
-grovepi.pinMode(LED,"OUTPUT")
 grovepi.pinMode(BUTTON,"INPUT")
+grovepi.pinMode(LED,"OUTPUT")
+grovepi.pinMode(BUZZER,"OUTPUT")
 # LCD connected to I2C port
 lcdInit()
 lock = threading.Lock() #define I2C lock
@@ -88,6 +89,20 @@ def buttonPressed():
     with lock:
         return grovepi.digitalRead(BUTTON)
 
+def alert():
+    """
+    flash LED and play buzzer to alert for incoming message
+    """
+    with lock:
+        grovepi.digitalWrite(LED,1)
+        for i in range(3)
+            grovepi.digitalWrite(BUZZER,1)
+            time.sleep(0.1)
+            grovepi.digitalWrite(BUZZER,0)
+            time.sleep(0.1)
+        writeIncoming(received)
+        grovepi.digitalWrite(LED,0)
+
 if __name__ == '__main__':
 
     # initialize state machine variables
@@ -144,9 +159,8 @@ if __name__ == '__main__':
 
             # message received
             elif state == 2:
-                writeIncoming(received)
+                alert()
                 state = 0
-                lcdInit()
                 with lock:
                     writeLetter(buf, " ")
                     writeMessage(buf, message)
