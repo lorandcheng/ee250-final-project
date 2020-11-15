@@ -28,9 +28,10 @@ def postMessageCallback():
     if type(request.get_data())==bytes:
         payload = request.get_data().decode('utf-8')
         payload = json.loads(payload)
-        payload['timestamp'] = str(datetime.now())
+        payload['timestamp'] = str(convertDatetimeTimezone(datetime.now(),'UTC','PST'))
     else:
         payload = request.get_json()
+        print('rpi-message')
     print(payload)
     # add message to database
     messageManager.addMessage(payload)
@@ -52,7 +53,6 @@ def getMessageCallback():
     # Get the payload containing the sender, message, and timestamp
     sender = request.args.get('sender')
     lastRead = request.args.get('lastRead')
-    print(lastRead)
     response = messageManager.getMessage(sender, lastRead)
     return json.dumps(response)
 
@@ -70,6 +70,20 @@ def historyCallback():
 @socketio.on('initial-connect')
 def handleConnection(message):
     print(message)
+
+import datetime
+import pytz
+
+def convertDatetimeTimezone(dt, tz1, tz2):
+    tz1 = pytz.timezone(tz1)
+    tz2 = pytz.timezone(tz2)
+
+    dt = datetime.datetime.strptime(dt,"%Y-%m-%d %H:%M:%S")
+    dt = tz1.localize(dt)
+    dt = dt.astimezone(tz2)
+    dt = dt.strftime("%Y-%m-%d %H:%M:%S")
+
+    return dt
 
 if __name__ == '__main__':
     
