@@ -151,10 +151,7 @@ if __name__ == '__main__':
                 #TODO turn off led and buzzer
                 break
             except:
-                setRGB(0, 0, 0)
-                textCommand(0x01)
-                #TODO turn off led and buzzer
-                break
+                pass
             
 
         # retry after LCD error
