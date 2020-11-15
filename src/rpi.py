@@ -99,7 +99,7 @@ if __name__ == '__main__':
     while True:
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
-            if len(notifier.getMessages()) != 0:
+            # if len(notifier.getMessages()) != 0:
                 # state = 2
                 # TODO other cleanup
 
