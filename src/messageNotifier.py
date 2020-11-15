@@ -55,4 +55,6 @@ if __name__ == '__main__':
     from constants import SERVER
     messageClient = messageHandler("Lorand",SERVER)
     notifier = Notifier(messageClient,1)
-    print(notifier.getMessages())
+    while True:
+        print(notifier.getMessages())
+        time.sleep(1)
