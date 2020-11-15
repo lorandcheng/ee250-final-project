@@ -28,7 +28,7 @@ def postMessageCallback():
     if type(request.get_data())==bytes:
         payload = request.get_data().decode('utf-8')
         payload = json.loads(payload)
-        payload['timestamp'] = str(convertDatetimeTimezone(datetime.now(),'UTC','PST'))
+        payload['timestamp'] = str(datetime.now())
     else:
         payload = request.get_json()
         print('rpi-message')
