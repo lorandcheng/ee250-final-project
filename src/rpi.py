@@ -89,17 +89,18 @@ def buttonPressed():
     with lock:
         return grovepi.digitalRead(BUTTON)
 
-def alert():
+def alert(replay):
     """
     flash LED and play buzzer to alert for incoming message
     """
     with lock:
         grovepi.digitalWrite(LED,1)
-        for i in range(3):
-            grovepi.digitalWrite(BUZZER,1)
-            time.sleep(0.1)
-            grovepi.digitalWrite(BUZZER,0)
-            time.sleep(0.1)
+        if not replay:
+            for i in range(3):
+                grovepi.digitalWrite(BUZZER,1)
+                time.sleep(0.1)
+                grovepi.digitalWrite(BUZZER,0)
+                time.sleep(0.1)
         writeIncoming(received)
         grovepi.digitalWrite(LED,0)
 
@@ -111,7 +112,7 @@ if __name__ == '__main__':
     done = 0 # action counter
     messageClient = messageHandler("rpi",SERVER) # for handling message sending
     notifier = Notifier(messageClient,1) # for message notifications
-    index = 0
+    replay = False
     while True:
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
@@ -159,14 +160,15 @@ if __name__ == '__main__':
 
             # message received
             elif state == 2:
-                alert()
+                alert(replay)
                 with lock:
                     writeLetter(buf, "Hold button")
                     writeMessage(buf, "to replay")
                 time.sleep(1)
                 if(buttonPressed()):
-                    pass
+                    replay = True
                 else:
+                    replay = False
                     writeLetter(buf, " ")
                     writeMessage(buf, message)
                     state = 0
