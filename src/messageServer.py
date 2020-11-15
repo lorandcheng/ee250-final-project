@@ -32,7 +32,11 @@ def postMessageCallback():
     else:
         payload = request.get_json()
     print(payload)
+    # add message to database
     messageManager.addMessage(payload)
+    # notify clients of new message
+    socketio.emit('message',payload)
+    # send response
     response = {'Response': 'Message sent'}
     return json.dumps(response)
 
