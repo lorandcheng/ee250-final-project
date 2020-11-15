@@ -101,7 +101,7 @@ if __name__ == '__main__':
             elapsedTime = time.time()-timerStart # calculate time since last transition
             if len(notifier.getMessages()) != 0:
                 received = notifier.getMessages()
-                print("Incoming message"+received)
+                print("Incoming message",received)
                 notifier.markMessagesRead()
                 state = 2
                 # TODO other cleanup
@@ -125,7 +125,7 @@ if __name__ == '__main__':
                 elif SEND < elapsedTime and not done:
                     state = 0
                     writeLetter(buf, "Message Sending")
-                    print("Message Sending:",message)
+                    print("Message Sending:" + message)
                     success = messageClient.sendMessage(message)
                     time.sleep(2)
                     if success:
