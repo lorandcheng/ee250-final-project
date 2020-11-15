@@ -93,9 +93,10 @@ if __name__ == '__main__':
     # initialize state machine variables
     timerStart = 0 # time of last event
     state = 0 # 0 button is not pressed, 1 button is pressed, 2 message sent
-    done = 0
-    messageClient = messageHandler("rpi",SERVER)
-    notifier = Notifier(messageClient,1)
+    done = 0 # action counter
+    messageClient = messageHandler("rpi",SERVER) # for handling message sending
+    notifier = Notifier(messageClient,1) # for message notifications
+    index = 0
     while True:
         try:
             elapsedTime = time.time()-timerStart # calculate time since last transition
@@ -104,6 +105,7 @@ if __name__ == '__main__':
                 print("Incoming message",received)
                 notifier.markMessagesRead()
                 state = 2
+                index = 0
                 # TODO other cleanup
 
             # button is not pressed
@@ -142,7 +144,12 @@ if __name__ == '__main__':
 
             # message received
             elif state == 2:
-                writeIncoming(received)
+                writeIncoming(received, index)
+                if index ==0:
+                    time.sleep(1)
+                else:
+                    time.sleep(0.2)
+                index++
                 if(buttonPressed()):
                     while buttonPressed():
                         time.sleep(0.05)
