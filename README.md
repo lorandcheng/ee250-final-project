@@ -13,7 +13,9 @@ This project is a morse code translator and messenger system between a raspberry
 
 ## Operation Instructions
 The cloud server and db need to be the first to run. The cloud server runs the 'messageServer.py' file locally, while the db just needs to be available for queries. Note: the database.ini file is not included in this repo to hide credentials
-- Dependencies/Libraries used: Flask, Flask_socketio, psycopg2, postgresql-client<br>
+- Dependencies/Libraries used: Flask, Flask_socketio, psycopg2, postgresql-client
+
 Next, web clients can connect through http://{vm host IP}:4200/ and send and receive messages<br>
-Finally, the rpi can connect by running 'rpi.py'<br>
+Finally, the rpi can connect by running 'rpi.py'
+
 - Dependencies/Libraries used: GrovePi, Flask, requests, pytz
