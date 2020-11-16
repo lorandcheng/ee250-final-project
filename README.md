@@ -16,6 +16,9 @@ The cloud server and db need to be the first to run. The cloud server runs the '
 - Dependencies/Libraries used: Flask, Flask_socketio, psycopg2, postgresql-client
 
 Next, web clients can connect through http://{vm host IP}:4200/ and send and receive messages<br>
+
+- Tools: JQuery, Bootstrap
+
 Finally, the rpi can connect by running 'rpi.py'
 
 - Dependencies/Libraries used: GrovePi, Flask, requests, pytz
